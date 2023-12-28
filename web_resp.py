@@ -52,9 +52,14 @@ def data_read(file_name):
     else:
         return f'"/<file_name>/read" file_name in ["data", "log"]'
 
-@app.route('/data/write/<data>')
-def data_write(data):
-    with open('/home/pi/autorun/static/data.txt' ,'w') as f:
+# @app.route('/data/write/<data>')
+# def data_write(data):
+#     with open('/home/pi/autorun/static/data.txt' ,'w') as f:
+#         f.write(data)
+#     return f"write>{data}"
+@app.route('/<file_name>/write/<data>')
+def data_write(file_name, data):
+    with open(f'static/{file_name}.txt', 'w') as f:
         f.write(data)
     return f"write>{data}"
     
