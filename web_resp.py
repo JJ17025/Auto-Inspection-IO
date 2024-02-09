@@ -52,14 +52,9 @@ def data_read(file_name):
     else:
         return f'"/<file_name>/read" file_name in ["data", "log"]'
 
-# @app.route('/data/write/<data>')
-# def data_write(data):
-#     with open('/home/pi/autorun/static/data.txt' ,'w') as f:
-#         f.write(data)
-#     return f"write>{data}"
-@app.route('/<file_name>/write/<data>')
-def data_write(file_name, data):
-    with open(f'static/{file_name}.txt', 'w') as f:
+@app.route('/data/write/<data>')
+def data_write(data):
+    with open('/home/pi/autorun/static/data.txt' ,'w') as f:
         f.write(data)
     return f"write>{data}"
     
@@ -80,6 +75,7 @@ if __name__ == '__main__':
             with open("/home/pi/autorun/static/log.txt", 'a' ,encoding='utf-8') as f:
                 f.write(f'{datetime.now()} run web\n\n')
             app.run('192.168.1.11',port=8080, debug=True)
+            #app.run('192.168.225.124',port=8080, debug=True)
         except:
             # with open("/home/pi/autorun/static/log.txt", 'a') as f:
                 # f.write(f'{datetime.now()}\n{e}\n\n')

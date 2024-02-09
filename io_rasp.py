@@ -31,6 +31,7 @@ I = {
     "Senser Infrared 0": 5,
     "Senser Infrared 1": 12,
     "Senser Infrared 2": 20,
+    "Senser Infrared 3": 16,
     "Reed Switch 11": 6,
     "Reed Switch 12": 13,
     "Reed Switch 21": 19,
@@ -104,19 +105,19 @@ def main_program():
             on('Stopper_2')
 
     if run_step == 1:
-        if read("Senser Infrared 0") == LOW and read("Senser Infrared 1") == LOW:
+        if read("Senser Infrared 0") == LOW and read("Senser Infrared 3") == LOW:
             # sen0 sen1 ไม่เจอ --> stopper1 ลง  ### เพื่อรอ pcb มา
             on('Stopper_1')
             run_step = 2
 
     elif run_step == 2:
-        if read("Senser Infrared 1") == HIGH:
+        if read("Senser Infrared 3") == HIGH:
             # sen1 เจอ --> ___ ### ถ้าเจอ pcb มา delay รอถ่ายภาพ
             run_step = 3
             datetime_old = datetime.now()
             
     elif run_step == 3:
-        if (datetime.now() - datetime_old).total_seconds() > 5:
+        if (datetime.now() - datetime_old).total_seconds() > 4:
             # หน่วงเวลา รอให้กล้องถ่ายภาพ
             run_step = 4
 
@@ -146,7 +147,7 @@ def main_program():
     
     elif run_step == 7:
         # หน่วงเวลา
-        if (datetime.now() - datetime_old).total_seconds() > 8 :
+        if (datetime.now() - datetime_old).total_seconds() > 2 :
             off('Stopper_2')
             run_step = 8
     elif run_step == 8:
